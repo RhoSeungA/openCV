@@ -5,7 +5,7 @@ import numpy as np
 img=cv.imread('soccer.jpg')
 
 #1
-gray=cv.imread('soccer.jpg', cv.IMREAD_GRAYSCALE) # BGR 컬러 영상을 명암 영상으로 변환하여 저장 -> imread + cvcColor
+gray=cv.imread('soccer.jpg', cv.IMREAD_GRAYSCALE) # BGR 컬러 영상을 명암 영상으로 변환하여 저장 -> imread + cvtColor
 
 if gray is None:
     sys.exit('파일을 찾을 수 없습니다.')
@@ -63,7 +63,7 @@ cv.imshow('two images - addWeighted',img_plus4)
 img_rev = cv.subtract(255,gray_small)     # y = 255 - x -> 반전 변환 함수
 cv.imshow('reverse image',img_rev) # 하얀색이 검은색으로..
 #
-#9
+#9 이진화
 # threshold 리턴 값은 두개 -> ret: true/false
 # 영상, 임계값 50 , max , type
 ret, img_binary50 = cv.threshold(gray_small, 50, 255, cv.THRESH_BINARY)

@@ -23,7 +23,7 @@ gray16=np.int16(gray) # gray는 한바이트 (8비트) -> 16비트로 늘려줌.
 
 emboss=np.uint8(np.clip(cv.filter2D(gray16,-1,femboss)+128,0,255))
 # 이건 클램핑 처리를 해줌 -> clip 함수를 이용 0보다 작으면 0으로, 255보다 크면 255로
-#
+
 emboss_bad=np.uint8(cv.filter2D(gray16,-1,femboss)+128)
 # -255~255되어져 있는 것들, but 우리는 0~255 밖에 표현 안됨
 # 그래서 표현해줄수 있는 것의 중앙에 오게끔 +128을 해줌
@@ -54,8 +54,10 @@ fsharpening4=np.array([[-1.0, -1.0, -1.0],
                   [ -1.0, 9.0, -1.0],
                   [ -1.0, -1.0, -1.0]])
 
-result = cv.filter2D(gray, -1, fsharpening1)
+result = cv.filter2D(gray, -1, fsharpening1) # 마지막이 필터 값
 #cv.imshow('result', result)
+
+# opencv 에서 제공하는...blur 함수 , medianBlur 함수 , bilateralFilter
 
 gray=cv.imread('coins.png', cv.IMREAD_GRAYSCALE)
 average = cv.blur(gray,(9,9))  #두번째 인자는 필터의 크기! 필터 크기 커지면 블러링 up    # 평균값 필터
@@ -64,7 +66,7 @@ average = cv.blur(gray,(9,9))  #두번째 인자는 필터의 크기! 필터 크
 cv.imshow('result -average', average)
 
 
-median = cv.medianBlur(gray,9)      # 중간값 필터 ( 두번째 인자는 필터 크기 3-> 3,ㅌ)
+median = cv.medianBlur(gray,9) # 3넣으면 3x3으로      # 중간값 필터 ( 두번째 인자는 필터 크기 3-> 3,ㅌ)
 cv.imshow('result - median', median) # 이건 약간 경계가 너무 흐려지지 않음
 
 # 에지의 값은 스무딩 시키지 않겠다.
@@ -73,6 +75,8 @@ bilateral = cv.bilateralFilter(gray, -1, sigmaColor=5, sigmaSpace=5)
 # 각 픽셀과 주변요소들로부터 가중 평균을 구함 => 가우시안과 유사
 # 단, 픽셀값의 차이도 같이 사용하여 유사한 픽셀에 더 큰 가중치를 두는 방법
 # 경계선을 유지하며 스무딩
+
+# 값의 차이가 너무 나면, 평균 구할때 포함시키지 않겠다? -> 경계 -> 경계는 그냥 유지
 
 cv.imshow('result - bilateral', bilateral)
 

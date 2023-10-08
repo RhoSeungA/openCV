@@ -1,5 +1,5 @@
+# 오츄 알고리즘을 이진화하기
 import cv2 as cv
-
 img=cv.imread('soccer.jpg')
 gray=cv.imread('soccer.jpg', cv.IMREAD_GRAYSCALE)
 
